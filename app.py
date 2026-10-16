@@ -8,9 +8,8 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 
-# ============================================================
-# NEUROFORGE | C++17 Neural Microscope + Feature Influence Lab
-# ============================================================
+
+# NEUROFORGE C++17 Neural Microscope + Feature Influence Lab
 
 ROOT = Path(__file__).resolve().parent
 BRIDGE = ROOT / "neuroforge_bridge.exe"
@@ -133,7 +132,7 @@ div[data-testid="stFormSubmitButton"] > button {
 """, unsafe_allow_html=True)
 
 
-# ---------------- C++ BRIDGE ----------------
+# C++ BRIDGE 
 
 def run_cpp(values):
     """Run local inference and return the bridge's JSON trace."""
@@ -182,7 +181,6 @@ def run_cpp(values):
             "The C++ bridge response must be a JSON object."
         )
 
-    # FIX: the actual bridge returns "success", not only "ok".
     if data.get("status") not in ("ok", "success"):
         raise RuntimeError(f"Bridge reported an error: {data}")
 
@@ -249,7 +247,7 @@ def run_cpp(values):
     return data
 
 
-# ---------------- SESSION STATE ----------------
+# SESSION STATE 
 
 SESSION_DEFAULTS = {
     "nf_trace": None,
@@ -325,14 +323,14 @@ with st.sidebar:
     st.caption("External AI API: not required")
 
 
-# ---------------- RUN BASELINE INFERENCE ----------------
+# RUN BASELINE INFERENCE 
 
 if submitted:
     try:
         with st.spinner("Running the C++ neural network..."):
             trace_result = run_cpp(raw_values)
 
-        # Save the full successful response for every dashboard section.
+        
         st.session_state["nf_trace"] = trace_result
         st.session_state["nf_raw_values"] = list(raw_values)
         st.session_state["nf_error"] = None
@@ -346,7 +344,7 @@ if st.session_state["nf_error"]:
     st.error(st.session_state["nf_error"])
 
 
-# ---------------- HEADER ----------------
+# HEADER 
 
 st.markdown(
     '<div class="nf-eyebrow">'
@@ -374,7 +372,7 @@ st.markdown(
 st.markdown('<hr class="nf-rule">', unsafe_allow_html=True)
 
 
-# ---------------- WAITING SCREEN ----------------
+# WAITING SCREEN 
 
 trace = st.session_state["nf_trace"]
 
@@ -399,7 +397,7 @@ if trace is None:
     """, unsafe_allow_html=True)
 
 else:
-    # ---------------- TRACE VALUES ----------------
+    # TRACE VALUES 
 
     normalized_inputs = trace["normalized_inputs"]
     input_hidden_weights = trace["input_hidden_weights"]
@@ -450,9 +448,7 @@ else:
 
     st.markdown('<hr class="nf-rule">', unsafe_allow_html=True)
 
-    # ========================================================
-    # 01 / NEURAL MICROSCOPE
-    # ========================================================
+    # NEURAL MICROSCOPE
 
     st.markdown(
         '<div class="nf-eyebrow">01 / Neural microscope</div>',
@@ -731,9 +727,7 @@ requestAnimationFrame(frame);
 
     components.html(html, height=730, scrolling=False)
 
-    # ========================================================
-    # 02 / FEATURE INFLUENCE LAB
-    # ========================================================
+    # FEATURE INFLUENCE LAB
 
     st.markdown('<hr class="nf-rule">', unsafe_allow_html=True)
     st.markdown(
@@ -854,9 +848,7 @@ requestAnimationFrame(frame);
         )
 
 
-# ============================================================
-# 03 / MODEL ACCURACY & CONFIDENCE LAB
-# ============================================================
+# MODEL ACCURACY & CONFIDENCE LAB
 
 st.markdown('<hr class="nf-rule">', unsafe_allow_html=True)
 st.markdown(
@@ -1365,9 +1357,9 @@ else:
         st.error(f"Could not load evaluation dataset: {exc}")
 
 
-# ============================================================
-# 04 / COMPUTATION RESULTS
-# ============================================================
+
+# COMPUTATION RESULTS
+
 
 st.markdown('<hr class="nf-rule">', unsafe_allow_html=True)
 st.markdown(
@@ -1529,8 +1521,6 @@ else:
                 "from neuroforge_bridge.exe."
             )
 
-
-# ---------------- FOOTER ----------------
 
 st.markdown('<hr class="nf-rule">', unsafe_allow_html=True)
 st.caption(
