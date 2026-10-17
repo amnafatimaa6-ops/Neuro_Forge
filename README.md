@@ -1,4 +1,22 @@
 # Neuro_Forge
+
+
+
+## 🎬 Demo
+
+![Project Demo](demo.gif)
+
+## 📸 Screenshots
+
+### Screenshot 1
+![Screenshot1](screenshot%201.png)
+
+### Screenshot 2
+![Screenshot2](screenshot%202.png)
+
+### Screenshot 3
+![Screenshot3](screenshot%203.png)
+
 C++ neural network
 ## 🚀 How to Run the App
 
